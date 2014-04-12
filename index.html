@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>KGR Order System</title>
+    <meta name="description" content="KGR Order System">
+    <meta name="author" content="Thorsten Tüllmann">
+
+    <!-- Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Stylesheets -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="title">
+        <h1>KGR Order System <span>Demo</span></h1>
+    </div>
+    <ul class="grid">
+        <li id="Cola"><h1>Cola</h1>
+	    <div class="ordered" style="display: none"> Bestellt! </div>
+        </li>
+        <li id="Bier"><h1>Bier</h1>
+	    <div class="ordered" style="display: none"> Bestellt! </div>
+	</li>
+        <li id="Schnaps"><h1>Schnaps</h1>
+	    <div class="ordered" style="display: none"> Bestellt! </div>
+	</li>
+        <li id="Becher"><h1>Becher</h1>
+	    <div class="ordered" style="display: none"> Bestellt! </div>
+	</li>
+    </ul>
+
+    <!-- Scripts -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/awesome-grid.min.js"></script>
+    <script src="js/pushoverJs.js"></script>
+    <script>
+        $(window).load(function(){
+            $('ul.grid').AwesomeGrid({
+                rowSpacing  : 20,
+                colSpacing  : 20,
+                columns     : {
+                    'defaults' : 4,
+                    '800' : 2
+                }
+            });
+        });
+
+	$("li").click(function(){
+		$(".ordered", this).show("slow").delay(30000).hide("slow");
+		var push = new PushoverJs('***REMOVED***','***REMOVED***');
+		push.createMessage(this.id, 'Bar oben').send();
+	});
+    </script>
+</body>
+</html>
