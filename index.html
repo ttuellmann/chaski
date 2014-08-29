@@ -34,14 +34,12 @@
       var li = $('<li/>')
         .attr('id', value)
         .appendTo(list);
+      var button = $('<button/>')
+        .attr('id', value)
+        .appendTo(li);
       var h1 = $('<h1/>')
         .text(value)
-        .appendTo(li);
-      var div = $('<div/>')
-        .addClass('ordered')
-        .attr('style', 'display: none')
-        .text('Bestellt!')
-        .appendTo(li);
+        .appendTo(button);
     });
 
     $(window).load(function(){
@@ -55,10 +53,15 @@
       });
     });
 
-	  $("li").click(function(){
-      $(".ordered", this).show("slow").delay(30000).hide("slow");
+	  $("button").click(function(){
+	var that = $(this);
+	if (that.prop("disabled")) {
+	} else {
       var push = new PushoverJs(push_appToken, push_userKey);
-      push.createMessage(this.id, 'Bar oben').send();
+      push.createMessage(that.id, 'Bar oben').send();
+	that.prop("disabled", true);
+	setTimeout( function() { that.prop("disabled", false); } , 5000);
+	}
 	  });
   </script>
 </body>
