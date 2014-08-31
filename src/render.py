@@ -15,7 +15,6 @@ if __name__ == "__main__":
 	parser.add_argument('-o', action="store", dest="outfile", help="output file")
 
 	parsed_results = parser.parse_args()
-	print parsed_results
 
 	env = Environment(loader=FileSystemLoader("."))
 	template = env.get_template( parsed_results.template )

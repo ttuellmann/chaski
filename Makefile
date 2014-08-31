@@ -1,22 +1,19 @@
 # Makefile for chaski
 
-vpath %.yaml conf
-vpath %.j2   src
+PROD_FILES := $(filter-out conf/example.yaml, $(wildcard conf/*.yaml))
+PROD_FILES := $(notdir $(PROD_FILES:.yaml=.html))
 
-all: prod
+prod: assets $(PROD_FILES)
 
 assets:
 	cp -r assets/* deploy
 
-%.html: %.yaml
+%.html: conf/%.yaml
 	src/render.py -o deploy/$@ -i $< -t src/chaski.html.j2
-
-prod: assets
-	@:
 
 test: assets example.html
 
 clean:
 	rm -rf deploy/*
 
-.PHONY: all assets prod test clean
+.PHONY: prod assets test clean
