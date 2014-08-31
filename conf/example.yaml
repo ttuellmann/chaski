@@ -1,0 +1,10 @@
+---
+name:   Skylounge
+author: Thorsten Tüllmann
+date:   1984-01-22
+items:
+        - [Korn, Whiskey, Wodka, Lao Khao]
+        - [Rum, Cachaça, Arrak, Mezcal]
+        - [Enzian, Bärwurz, Blutwurz, Topinambur]
+pushover_apptoken: ***REMOVED***
+pushover_userkey:  ***REMOVED***

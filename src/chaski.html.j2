@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>KGR Order System</title>
-  <meta name="description" content="KGR Order System">
-  <meta name="author" content="Thorsten Tüllmann">
+  <title>{{ name  }} Order System</title>
+  <meta name="description" content="{{ name }} Order System">
+  <meta name="author" content="{{ author }}">
 
   <!-- Viewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -19,32 +19,25 @@
 
 <body>
   <div class="title">
-    <h1>KGR Order System <span>Demo</span></h1>
+    <h1>{{ name }} Order System <span>Demo</span></h1>
   </div>
   
-  <ul class="grid"/>
+  <ul class="grid">
+    {%- for row in items  %}
+    {%- for item in row %}
+    <li> <button id={{ item }}> <h1>{{ item }}</h1> </button> </li>
+    {%- endfor %}
+    {%- endfor %}
+  </ul>
 
   <!-- Scripts -->
   <script src="js/jquery.min.js"></script>
   <script src="js/awesome-grid.min.js"></script>
   <script src="js/pushoverJs.js"></script>
   <script>
-    var push_appToken = '***REMOVED***';
-    var push_userKey  = '***REMOVED***';
-
-    var items = ['Cola', 'Bier', 'Wasser', 'Becher'];
-    var list = $('ul.grid');
-    $.each(items, function(key, value){
-      var li = $('<li/>')
-        .attr('id', value)
-        .appendTo(list);
-      var button = $('<button/>')
-        .attr('id', value)
-        .appendTo(li);
-      var h1 = $('<h1/>')
-        .text(value)
-        .appendTo(button);
-    });
+    var push_appToken = '{{ pushover_apptoken }}';
+    var push_userKey  = '{{ pushover_userkey }}';
+    var push = new PushoverJs(push_appToken, push_userKey);
 
     $(window).load(function(){
       $('ul.grid').AwesomeGrid({
@@ -57,16 +50,15 @@
       });
     });
 
-	  $("button").click(function(){
-	var that = $(this);
-	if (that.prop("disabled")) {
-	} else {
-      var push = new PushoverJs(push_appToken, push_userKey);
-      push.createMessage(that.id, 'Bar oben').send();
-	that.prop("disabled", true);
-	setTimeout( function() { that.prop("disabled", false); } , 5000);
-	}
-	  });
+    $("button").click(function(){
+      var that = $(this);
+      if (that.prop("disabled")) {
+      } else {
+        push.createMessage(that.id, '{{ name }}').send();
+        that.prop("disabled", true);
+        setTimeout( function() { that.prop("disabled", false); } , 5000);
+      }
+    });
   </script>
 </body>
 </html>

@@ -1,14 +1,22 @@
 # Makefile for chaski
 
-all: assets build
+vpath %.yaml conf
+vpath %.j2   src
+
+all: prod
 
 assets:
 	cp -r assets/* deploy
 
-build: 
-	@echo build not implemented
+%.html: %.yaml
+	src/render.py -o deploy/$@ -i $< -t src/chaski.html.j2
+
+prod: assets
+	@:
+
+test: assets example.html
 
 clean:
 	rm -rf deploy/*
 
-.PHONY: all assets build clean
+.PHONY: all assets prod test clean
