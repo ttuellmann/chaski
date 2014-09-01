@@ -19,11 +19,14 @@
 </head>
 
 <body>
-  <div class="container">
-    <div class="page-header">
-      <h1>{{ name }} Order System <small>Demo</small></h1>
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <p class="navbar-text">{{ name }}</p>
+      <p class="navbar-text navbar-right">Order System Demo</p>
     </div>
-  
+  </nav>
+
+  <div class="container">
     {%- for row in items  %}
     <div class="row margin-top-20">
       {%- for item in row %}
