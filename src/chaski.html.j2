@@ -10,56 +10,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   <!-- Favicons -->
-  <link rel="icon" type="image/png" href="http://example.com/image.png" />
-  <link rel="apple-touch-icon" href="somepath/image.png" />
+  <link rel="icon" type="image/png" href="img/image.png" />
+  <link rel="apple-touch-icon" href="img/image.png" />
   
   <!-- Stylesheets -->
-  <link href="css/style.css" rel="stylesheet">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/my.css" rel="stylesheet">
 </head>
 
 <body>
-  <div class="title">
-    <h1>{{ name }} Order System <span>Demo</span></h1>
-  </div>
+  <div class="container">
+    <div class="page-header">
+      <h1>{{ name }} Order System <small>Demo</small></h1>
+    </div>
   
-  <ul class="grid">
     {%- for row in items  %}
-    {%- for item in row %}
-    <li><button id="{{ item }}"><h1>{{ item }}</h1></button></li>
+    <div class="row margin-top-20">
+      {%- for item in row %}
+      <div class="col-md-3"><button type="button" class="btn btn-primary btn-lg btn-block" name="{{ item }}"><h1>{{ item }}</h1></button></div>
+      {%- endfor %}
+    </div>
     {%- endfor %}
-    {%- endfor %}
-  </ul>
+  </div>
 
   <!-- Scripts -->
   <script src="js/jquery.min.js"></script>
-  <script src="js/awesome-grid.min.js"></script>
   <script src="js/pushoverJs.js"></script>
   <script>
     var push_appToken = '{{ pushover_apptoken }}';
     var push_userKey  = '{{ pushover_userkey }}';
     var push = new PushoverJs(push_appToken, push_userKey);
 
-    $(window).load(function(){
-      $('ul.grid').AwesomeGrid({
-        rowSpacing  : 20,
-        colSpacing  : 20,
-        columns     : {
-          'defaults' : 4,
-          '800' : 2
-        }
-      });
-    });
-
     $("button").click(function(){
-      var that = $(this);
-      if (that.prop("disabled")) {
+      if ($(this).prop("disabled")) {
         // Button still blocked. Do nothing.
       } else {
-        push.createMessage(that.id, '{{ name }}').send();
-        that.prop("disabled", true);
-        setTimeout( function() { that.prop("disabled", false); } , 5000);
+        push.createMessage(this.name, '{{ name }}').send();
+        $(this).prop("disabled", true);
+        setTimeout( function() { $(this).prop("disabled", false); } , 5000);
       }
     });
   </script>
+  <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
