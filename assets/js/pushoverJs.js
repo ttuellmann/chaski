@@ -1,4 +1,5 @@
-﻿
+﻿// PushoverJS - Copyright (c) 2014 Richard Niemand
+// Licensed under the MIT License
 var PushoverJs = function (appToken, userKey) {
   var self = {
     AppToken: appToken,
