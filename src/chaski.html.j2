@@ -40,8 +40,8 @@
   <script src="js/jquery.min.js"></script>
   <script src="js/pushoverJs.js"></script>
   <script>
-    var push_appToken = '{{ pushover_apptoken }}';
-    var push_userKey  = '{{ pushover_userkey }}';
+    var push_appToken = '{{ pushover.apptoken }}';
+    var push_userKey  = '{{ pushover.userkey }}';
     var push = new PushoverJs(push_appToken, push_userKey);
 
     $("button").click(function(){
